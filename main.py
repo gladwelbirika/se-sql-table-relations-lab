@@ -1,52 +1,43 @@
-# STEP 0
-
-# SQL Library and Pandas Library
+# STEP 1A
+# Import SQL Library and Pandas
 import sqlite3
 import pandas as pd
 
+# STEP 1B
 # Connect to the database
 conn = sqlite3.connect('data.sqlite')
 
-pd.read_sql("""SELECT * FROM sqlite_master""", conn)
-
-# STEP 1
-# Replace None with your code
-df_boston = None
 
 # STEP 2
 # Replace None with your code
-df_zero_emp = None
+df_first_five = pd.read_sql("""SELECT employeeNumber, lastName FROM employees""", conn)
 
 # STEP 3
 # Replace None with your code
-df_employee = None
+df_five_reverse = pd.read_sql("""SELECT lastName, employeeNumber FROM employees""", conn)
 
 # STEP 4
 # Replace None with your code
-df_contacts = None
+df_alias = pd.read_sql("""SELECT lastName, employeeNumber AS ID FROM employees""", conn)
 
 # STEP 5
 # Replace None with your code
-df_payment = None
+df_executive = pd.read_sql("""SELECT *, CASE WHEN jobTitle = "President" OR jobTitle = "VP Sales" OR jobTitle = "VP Marketing" THEN "Executive" ELSE "Not Executive" END AS role FROM employees""", conn)
 
 # STEP 6
 # Replace None with your code
-df_credit = None
+df_name_length = pd.read_sql("""SELECT LENGTH(lastName) AS name_length FROM employees""", conn)
 
 # STEP 7
 # Replace None with your code
-df_product_sold = None
+df_short_title = pd.read_sql("""SELECT SUBSTR(jobTitle, 1, 2) AS short_title FROM employees""", conn)
 
 # STEP 8
 # Replace None with your code
-df_total_customers = None
+sum_total_price = pd.read_sql("""SELECT SUM(ROUND(priceEach * quantityOrdered)) AS total_price FROM orderDetails""", conn).iloc[:, 0]
 
 # STEP 9
 # Replace None with your code
-df_customers = None
-
-# STEP 10
-# Replace None with your code
-df_under_20 = None
+df_day_month_year = pd.read_sql("""SELECT orderDate, STRFTIME('%d', orderDate) AS day, STRFTIME('%m', orderDate) AS month, STRFTIME('%Y', orderDate) AS year FROM orders""", conn)
 
 conn.close()
